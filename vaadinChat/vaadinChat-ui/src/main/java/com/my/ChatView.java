@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ChatView extends CustomComponent implements View {
+public class ChatView extends CustomComponent implements View, Button.ClickListener {
 
-    String user = "anonymous";
+    //String user = "anonymous";
     VerticalLayout messages = null;
     public static List<ChatView> clients = new ArrayList<>();
-
+    TextField msg;
 
     public ChatView() {
         setSizeFull();
@@ -68,10 +68,12 @@ public class ChatView extends CustomComponent implements View {
     public Component createSendMsgField() {
 
         HorizontalLayout l = new HorizontalLayout();
-        TextField t = new TextField();
-        l.addComponent(t);
+        msg = new TextField();
+        l.addComponent(msg);
         Button b = new Button("send");
-        b.addClickListener(e -> sendMessage(user + t.getValue()));
+
+
+        b.addClickListener(this);
         l.addComponent(b);
 
         Panel p = new Panel();
@@ -89,5 +91,12 @@ public class ChatView extends CustomComponent implements View {
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
 
+    }
+
+    @Override
+    public void buttonClick(Button.ClickEvent clickEvent) {
+        Object username_ = getSession().getAttribute("username");
+        String userName = (username_ == null) ? "annonymous" : (String) username_;
+        sendMessage(userName + ":" + msg.getValue());
     }
 }

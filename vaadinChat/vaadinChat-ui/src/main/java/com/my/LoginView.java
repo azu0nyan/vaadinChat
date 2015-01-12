@@ -7,7 +7,10 @@ import com.vaadin.ui.*;
 /**
  * Created by azu on 12.01.2015.
  */
-public class LoginView extends CustomComponent implements View {
+public class LoginView extends CustomComponent implements View, Button.ClickListener {
+
+    TextField loginText;
+    PasswordField passwordField;
 
     public LoginView() {
         setSizeFull();
@@ -19,7 +22,7 @@ public class LoginView extends CustomComponent implements View {
         HorizontalLayout login = new HorizontalLayout();
         Label loginLabel = new Label("Login");
         login.addComponent(loginLabel);
-        TextField loginText = new TextField();
+        loginText = new TextField();
         login.addComponent(loginText);
 
         loginForm.addComponent(login);
@@ -27,12 +30,13 @@ public class LoginView extends CustomComponent implements View {
         HorizontalLayout password = new HorizontalLayout();
         Label passwordLabel = new Label("Password");
         password.addComponent(passwordLabel);
-        PasswordField passwordField = new PasswordField();
+        passwordField = new PasswordField();
         password.addComponent(passwordField);
 
         loginForm.addComponent(password);
 
         Button enterPassword = new Button("Log in..");
+        enterPassword.addClickListener(this);
 
         loginForm.addComponent(enterPassword);
 
@@ -49,5 +53,11 @@ public class LoginView extends CustomComponent implements View {
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
 
+    }
+
+    @Override
+    public void buttonClick(Button.ClickEvent clickEvent) {
+        getSession().setAttribute("username", loginText.getValue());
+        getUI().getNavigator().navigateTo("CHAT");
     }
 }
