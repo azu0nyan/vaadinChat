@@ -1,31 +1,23 @@
 package com.my;
 
-import com.vaadin.annotations.*;
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServlet;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.shared.ui.MarginInfo;
-import com.vaadin.shared.ui.ui.Transport;
 import com.vaadin.ui.*;
 
-import javax.servlet.annotation.WebServlet;
 import java.util.ArrayList;
 import java.util.List;
 
 
-@Title("Chat")
-@Theme("mytheme")
-@Widgetset("com.my.MyAppWidgetset")
-@Push(transport = Transport.STREAMING)
-public class VaadinChat extends UI {
+public class ChatView extends CustomComponent implements View {
 
     String user = "anonymous";
     VerticalLayout messages = null;
-    public static List<VaadinChat> clients = new ArrayList<>();
+    public static List<ChatView> clients = new ArrayList<>();
 
 
-    @Override
-    protected void init(VaadinRequest vaadinRequest) {
-
+    public ChatView() {
+        setSizeFull();
         clients.add(this);
 
         VerticalLayout content = new VerticalLayout();
@@ -45,7 +37,8 @@ public class VaadinChat extends UI {
 
         Component sendMsg = createSendMsgField();
         content.addComponent(sendMsg);
-        setContent(content);
+        setCompositionRoot(content);
+        //setContent(content);
 
 
     }
@@ -63,12 +56,12 @@ public class VaadinChat extends UI {
     }
 
     public void addMessageToView(String text) {
-        access(() -> {
+        //access(() -> {
             Label l = new Label(text);
             l.setHeightUndefined();
             messages.addComponent(l);
-            scrollIntoView(l);
-        });
+        //     scrollIntoView(l);
+        // });
     }
 
 
@@ -93,8 +86,8 @@ public class VaadinChat extends UI {
         clients.stream().forEach(e -> e.addMessageToView(text));
     }
 
-    @WebServlet(urlPatterns = "/*", name = "ChatServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = VaadinChat.class, productionMode = false)
-    public static class ChatServlet extends VaadinServlet {
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
+
     }
 }

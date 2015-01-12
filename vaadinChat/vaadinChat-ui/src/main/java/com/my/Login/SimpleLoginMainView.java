@@ -1,4 +1,4 @@
-package com.my;
+package com.my.Login;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -10,7 +10,7 @@ import com.vaadin.ui.Label;
 /**
  * Created by azu on 09.01.2015.
  */
-public class SimpleLoginView extends CustomComponent implements View {
+public class SimpleLoginMainView extends CustomComponent implements View {
 
     public static final String NAME = "";
 
@@ -29,7 +29,7 @@ public class SimpleLoginView extends CustomComponent implements View {
         }
     });
 
-    public SimpleLoginView() {
+    public SimpleLoginMainView() {
         setCompositionRoot(new CssLayout(text, logout));
     }
 

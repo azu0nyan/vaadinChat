@@ -1,4 +1,4 @@
-package com.my;
+package com.my.Login;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -53,6 +53,7 @@ public class SimpleLoginUI extends UI {
 
                 // Check if a user has logged in
                 boolean isLoggedIn = getSession().getAttribute("user") != null;
+                System.out.println("LOGIN:" + isLoggedIn);
                 boolean isLoginView = event.getNewView() instanceof SimpleLoginView;
 
                 if (!isLoggedIn && !isLoginView) {

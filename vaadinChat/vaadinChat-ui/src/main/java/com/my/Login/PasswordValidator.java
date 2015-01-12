@@ -1,4 +1,4 @@
-package com.my;
+package com.my.Login;
 
 import com.vaadin.data.validator.AbstractValidator;
 
