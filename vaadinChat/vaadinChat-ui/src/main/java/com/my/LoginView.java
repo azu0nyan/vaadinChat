@@ -57,6 +57,8 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
 
     @Override
     public void buttonClick(Button.ClickEvent clickEvent) {
+
+
         getSession().setAttribute("username", loginText.getValue());
         getUI().getNavigator().navigateTo("CHAT");
     }
